@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import type { Card as CardType, Rank, Suit } from '../strategy/types';
 
 interface CardProps {
@@ -6,6 +6,7 @@ interface CardProps {
   faceDown?: boolean;
   className?: string;
   style?: React.CSSProperties;
+  dealDelay?: number; // Delay before card slides in (ms)
 }
 
 // Build the SVG filename for a card
@@ -54,13 +55,40 @@ const CardFace: React.FC<{ card: CardType }> = ({ card }) => {
   );
 };
 
-export const Card: React.FC<CardProps> = ({ card, faceDown = false, className = '', style }) => {
+export const Card: React.FC<CardProps> = ({
+  card,
+  faceDown = false,
+  className = '',
+  style,
+  dealDelay = 0
+}) => {
+  const [isDealt, setIsDealt] = useState(false);
+  const mountedRef = useRef(false);
+
+  useEffect(() => {
+    // Only animate on initial mount
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      const timer = setTimeout(() => {
+        setIsDealt(true);
+      }, dealDelay);
+      return () => clearTimeout(timer);
+    }
+  }, [dealDelay]);
+
   return (
-    <div className={`playing-card ${className}`} style={style}>
+    <div
+      className={`playing-card ${className}`}
+      style={{
+        ...style,
+        transform: isDealt ? 'translateX(0)' : 'translateX(80px)',
+        opacity: isDealt ? 1 : 0,
+        transition: 'transform 0.3s ease-out, opacity 0.2s ease-out',
+      }}
+    >
       {faceDown || !card ? <CardBack /> : <CardFace card={card} />}
     </div>
   );
 };
 
 export default Card;
-

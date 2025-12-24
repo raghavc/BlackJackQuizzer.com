@@ -321,20 +321,20 @@ function App() {
               </div>
               <div className="flex items-center">
                 {/* Hole card (first card) */}
-                <div className="animate-card-deal" style={{ zIndex: 0 }}>
+                <div style={{ zIndex: 0 }}>
                   <CardComponent
                     card={holeCardRevealed ? dealerHand[0] : undefined}
                     faceDown={!holeCardRevealed}
+                    dealDelay={0}
                   />
                 </div>
                 {/* Remaining dealer cards */}
                 {dealerHand.slice(1).map((card, i) => (
                   <div
-                    key={i}
-                    className="animate-card-deal"
-                    style={{ marginLeft: '-24px', zIndex: i + 1, animationDelay: `${(i + 1) * 100}ms` }}
+                    key={`dealer-${i}-${card.rank}-${card.suit}`}
+                    style={{ marginLeft: '-24px', zIndex: i + 1 }}
                   >
-                    <CardComponent card={card} />
+                    <CardComponent card={card} dealDelay={(i + 1) * 100} />
                   </div>
                 ))}
               </div>
@@ -363,11 +363,10 @@ function App() {
                   <div className={`flex items-center ${splitHand && activeHand === 'main' ? 'ring-2 ring-white/30 rounded-lg p-1' : ''}`}>
                     {playerHand.map((card, i) => (
                       <div
-                        key={i}
-                        className="animate-card-deal"
-                        style={{ marginLeft: i > 0 ? '-24px' : '0', zIndex: i, animationDelay: `${i * 80}ms` }}
+                        key={`player-${i}-${card.rank}-${card.suit}`}
+                        style={{ marginLeft: i > 0 ? '-24px' : '0', zIndex: i }}
                       >
-                        <CardComponent card={card} />
+                        <CardComponent card={card} dealDelay={i * 80} />
                       </div>
                     ))}
                   </div>
@@ -385,11 +384,10 @@ function App() {
                     <div className={`flex items-center ${activeHand === 'split' ? 'ring-2 ring-white/30 rounded-lg p-1' : ''}`}>
                       {splitHand.map((card, i) => (
                         <div
-                          key={i}
-                          className="animate-card-deal"
-                          style={{ marginLeft: i > 0 ? '-24px' : '0', zIndex: i, animationDelay: `${i * 80}ms` }}
+                          key={`split-${i}-${card.rank}-${card.suit}`}
+                          style={{ marginLeft: i > 0 ? '-24px' : '0', zIndex: i }}
                         >
-                          <CardComponent card={card} />
+                          <CardComponent card={card} dealDelay={i * 80} />
                         </div>
                       ))}
                     </div>
@@ -437,13 +435,13 @@ function App() {
             )}
           </div>
         </div>
-      </main>
+      </main >
 
       {/* Decision Log */}
-      <DecisionLog decisions={decisions} isVisible={decisions.length > 0} />
+      < DecisionLog decisions={decisions} isVisible={decisions.length > 0} />
 
       {/* Footer */}
-      <footer className="px-6 py-4 text-center">
+      < footer className="px-6 py-4 text-center" >
         <p className="text-[11px] text-[var(--text-muted)] tracking-wide">
           <span className="opacity-70">Press</span>{' '}
           <span className="text-[var(--text-secondary)]">H S D P R</span>{' '}
@@ -451,8 +449,8 @@ function App() {
           <span className="text-[var(--text-secondary)]">N</span>{' '}
           <span className="opacity-70">for new hand</span>
         </p>
-      </footer>
-    </div>
+      </footer >
+    </div >
   );
 }
 
