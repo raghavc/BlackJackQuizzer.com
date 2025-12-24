@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://raghavc.github.io/BlackJackQuizzer.com/sitemap.xml
