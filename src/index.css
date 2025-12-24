@@ -1,0 +1,264 @@
+@import "tailwindcss";
+
+:root {
+  /* Apple-inspired palette */
+  --bg-primary: #181818;
+  --bg-secondary: #1e1e1e;
+  --bg-elevated: #252525;
+
+  --text-primary: #ffffff;
+  --text-secondary: #a0a0a0;
+  --text-muted: #666666;
+
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-default: rgba(255, 255, 255, 0.12);
+
+  /* Feedback */
+  --success: #30d158;
+  --error: #ff453a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardDeal {
+  from {
+    transform: translateX(100px);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes splitLeft {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-60px);
+  }
+}
+
+@keyframes splitRight {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(60px);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-card-deal {
+  animation: cardDeal 0.25s ease-out forwards;
+}
+
+.animate-split-left {
+  animation: splitLeft 0.3s ease-out forwards;
+}
+
+.animate-split-right {
+  animation: splitRight 0.3s ease-out forwards;
+}
+
+/* Apple-style Liquid Glass */
+.liquid-glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.05),
+    0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.liquid-glass-subtle {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Apple-style button */
+.btn-apple {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 8px;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.05),
+    0 4px 16px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-apple:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.08),
+    0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.btn-apple:active:not(:disabled) {
+  transform: translateY(0);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.btn-apple:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+/* Primary CTA button */
+.btn-primary {
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.1),
+    0 8px 24px rgba(0, 0, 0, 0.25);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover {
+  background: rgba(255, 255, 255, 0.24);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-2px);
+  box-shadow:
+    0 0 0 0.5px rgba(255, 255, 255, 0.15),
+    0 12px 32px rgba(0, 0, 0, 0.35);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* Card styling */
+.playing-card {
+  filter: drop-shadow(0 8px 24px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+/* Focus states */
+button:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+/* Selection */
+::selection {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* Casino table green rules banner */
+.rules-banner {
+  background: linear-gradient(180deg, #1a7134 0%, #155a2a 100%);
+  color: rgba(255, 255, 255, 0.9);
+  font-style: italic;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Decision log floating box - top right */
+.decision-log {
+  position: fixed;
+  top: 80px;
+  right: 24px;
+  width: 280px;
+  z-index: 40;
+}
+
+/* Game result overlay */
+.game-result {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.game-result.win {
+  color: var(--success);
+}
+
+.game-result.lose {
+  color: var(--error);
+}
+
+.game-result.push {
+  color: var(--text-secondary);
+}
